@@ -13,10 +13,13 @@
 
 # misc
 .DS_Store
+.eslint*
+.prettier*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env.dev
 .env
 
 npm-debug.log*
