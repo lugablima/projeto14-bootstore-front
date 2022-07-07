@@ -80,7 +80,7 @@ export default function Login() {
         <Logo />
         <Form data={formData} />
         <span className="link">
-          Ainda não cadastrado? <Link to="/singup">Crie uma conta</Link>
+          Ainda não cadastrado? <Link to="/signup">Crie uma conta</Link>
         </span>
       </Page>
     </Container>
