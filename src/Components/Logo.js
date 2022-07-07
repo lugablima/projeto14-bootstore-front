@@ -1,15 +1,18 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Logo() {
   return (
-    <Container>
-      <div className="border-bottom">
-        <span>
-          boot
-          <b>store</b>
-        </span>
-      </div>
-    </Container>
+    <Link to="/">
+      <Container>
+        <div className="border-bottom">
+          <span>
+            boot
+            <b>store</b>
+          </span>
+        </div>
+      </Container>
+    </Link>
   );
 }
 
