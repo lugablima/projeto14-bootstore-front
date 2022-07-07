@@ -2,14 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import React from "react";
-import { useUserContext } from "../Contexts/UserContext";
 import Form from "../Components/Form";
 import Logo from "../Components/Logo";
 import Page from "../Layouts/Page";
 
-export default function Login() {
+export default function SignUp() {
   const navigate = useNavigate();
-  const UserContext = useUserContext();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -29,8 +27,7 @@ export default function Login() {
     };
 
     const promise = axios.post(URL, data);
-    promise.then((res) => {
-      UserContext.setUser(res.data);
+    promise.then(() => {
       navigate("/login");
     });
     promise.catch((err) => {
