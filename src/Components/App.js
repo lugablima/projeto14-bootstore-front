@@ -1,14 +1,14 @@
-// import dotenv from "dotenv";
-// dotenv.config();
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import Login from "../Pages/Login";
 
 function App() {
-  // const API = process.env.REACT_APP_API_BASE_URL;
-  const oi = "olá";
-
   return (
-    <div>
-      <h1>Essa é a URL da minha API {oi}</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
