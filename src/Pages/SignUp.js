@@ -30,7 +30,6 @@ export default function Login() {
 
     const promise = axios.post(URL, data);
     promise.then((res) => {
-      UserContext.setUser(res.data);
       navigate("/login");
     });
     promise.catch((err) => {
