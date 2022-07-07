@@ -10,12 +10,13 @@ const Input = styled.input`
   font-family: inherit;
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 14px;
   color: var(--secondary);
   padding: 12px 0;
   &::placeholder {
     color: var(--gray-04);
+    font-size: 12px;
     font-weight: 300;
   }
   &:focus-visible {
