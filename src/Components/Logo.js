@@ -19,7 +19,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 130px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background: transparent;
   font-family: "Bree Serif";
   font-style: normal;
