@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import React from "react";
+import { useUserContext } from "../Contexts/UserContext";
 import Form from "../Components/Form";
 import Logo from "../Components/Logo";
 import Page from "../Layouts/Page";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const UserContext = useUserContext();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -15,6 +19,24 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     setDisabled(true);
+
+    const URL = `${process.env.REACT_APP_API_BASE_URL}/signup`;
+    const data = {
+      name,
+      email,
+      password,
+      confirmation,
+    };
+
+    const promise = axios.post(URL, data);
+    promise.then((res) => {
+      UserContext.setUser(res.data);
+      navigate("/login");
+    });
+    promise.catch((err) => {
+      alert(err.response.data);
+      setDisabled(false);
+    });
   }
 
   const formData = {
