@@ -29,10 +29,10 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   gap: 13px;
-  margin-bottom: 36px;
+  margin-bottom: 20px;
 
   button {
-    margin: 30px 0 20px 0;
+    margin-top: 30px;
   }
 
   label {
