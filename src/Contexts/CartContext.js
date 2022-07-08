@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 function getLocalCart() {
   const localUser = JSON.parse(localStorage.getItem("user"));
@@ -9,14 +9,14 @@ function updateLocalCart(cart) {
   localStorage.setItem("user", JSON.stringify(cart));
 }
 
-const CartContext = React.createContext();
+const CartContext = createContext();
 
-export const useCartContext = () => React.useContext(CartContext);
+export const useCartContext = () => useContext(CartContext);
 
 export default function CartProvider({ children }) {
-  const [cart, setCart] = React.useState(getLocalCart());
+  const [cart, setCart] = useState(getLocalCart());
 
-  React.useEffect(() => {
+  useEffect(() => {
     updateLocalCart(cart);
   }, [cart]);
 
