@@ -12,14 +12,14 @@ export default function Cart() {
   //   {
   //     productId: 0,
   //     name: "Tênis",
-  //     description: "da Nike",
+  //     descriptionProduct: "da Nike",
   //     price: 100.0,
   //     imageUrl: "#",
   //   },
   //   {
   //     productId: 1,
   //     name: "Tênis 2",
-  //     description: "da Addidas",
+  //     descriptionProduct: "da Addidas",
   //     price: 200.0,
   //     imageUrl: "#",
   //   },
@@ -28,7 +28,13 @@ export default function Cart() {
   return (
     <Container>
       <Header text="Carrinho" />
-      <List>{cart.length !== 0 ? cart.map((product) => <ItemList key={product.productId} product={product} />) : ""}</List>
+      <List>
+        {cart.length !== 0 ? (
+          cart.map((product) => <ItemList key={product.productId} page="Carrinho" product={product} card={{}} />)
+        ) : (
+          <p className="message-empty">Seu carrinho está vazio :/</p>
+        )}
+      </List>
       <Footer page="Carrinho" />
     </Container>
   );
@@ -41,4 +47,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  position: relative;
+
+  .message-empty {
+    font: 500 20px/24px "Lato", sans-serif;
+    color: var(--primary);
+    text-align: center;
+    position: absolute;
+    top: calc(50% - 24px);
+  }
 `;

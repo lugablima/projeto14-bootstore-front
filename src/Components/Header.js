@@ -24,7 +24,7 @@ const Container = styled.div`
   left: 0;
   z-index: 1;
   color: #fff;
-  font-size: 26px;
+  font-size: 30px;
 
   p {
     width: 122px;

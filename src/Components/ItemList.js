@@ -1,21 +1,44 @@
 import styled from "styled-components";
-import { IoTrashOutline } from "react-icons/io5";
+import { IoTrashOutline, IoCard } from "react-icons/io5";
+import { useUserContext } from "../Contexts/UserContext";
+import { useCartContext } from "../Contexts/CartContext";
+import { useCardsContext } from "../Contexts/CardsContext";
 
-export default function ItemList({ product: { imageUrl, name, description, price } }) {
+export default function ItemList({
+  page,
+  product: { productId, imageUrl, name, descriptionProduct, price },
+  card: { _id, cardNumber, description, date },
+}) {
+  const {
+    user: { token },
+  } = useUserContext();
+  const { removeProductFromCart } = useCartContext();
+  const { removeCard } = useCardsContext();
+  let priceFinal = 0;
+
+  if (page === "Carrinho") priceFinal = price.toFixed(2).replace(".", ",");
+
+  function removeProductOrCard() {
+    if (page === "Carrinho") removeProductFromCart(productId);
+    else removeCard(_id, token);
+  }
+
   return (
     <Container>
-      <div className="description">
-        <img src={imageUrl} alt="produto" />
-        <div>
+      <div className="left">
+        <div className="image">
+          {page === "Carrinho" ? <img src={imageUrl} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}
+        </div>
+        <div className="description">
           <div>
-            <p>{name}</p>
-            <span>{description}</span>
+            <p>{page === "Carrinho" ? name : cardNumber}</p>
+            <span>{page === "Carrinho" ? descriptionProduct : description}</span>
           </div>
-          <p>R${price.toFixed(2).replace(".", ",")}</p>
+          <p>{page === "Carrinho" ? `R$ ${priceFinal}` : <span style={{ fontWeight: 500 }}>Adicionado: {date}</span>}</p>
         </div>
       </div>
       <div className="garbage">
-        <IoTrashOutline />
+        <IoTrashOutline onClick={() => removeProductOrCard()} />
       </div>
     </Container>
   );
@@ -24,14 +47,14 @@ export default function ItemList({ product: { imageUrl, name, description, price
 const Container = styled.div`
   width: 100%;
   height: 90px;
-  margin-bottom: 17px;
+  margin-bottom: 20px;
   display: flex;
   font: 500 16px/19px "Lato", sans-serif;
   text-align: left;
   overflow: hidden;
   position: relative;
 
-  .description {
+  .left {
     width: 100%;
     height: 100%;
     padding: 10px;
@@ -41,21 +64,30 @@ const Container = styled.div`
     display: flex;
   }
 
-  &:hover > .description {
+  &:hover > .left {
     width: 86.98%;
     border-radius: 15px 0 0 15px;
   }
 
-  img {
+  .image {
     width: 70px;
     height: 70px;
-    margin-right: 10px;
     border-radius: 10px;
+    margin-right: 10px;
     background: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
     object-fit: cover;
   }
 
-  .description > div {
+  .description {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -63,7 +95,7 @@ const Container = styled.div`
     align-items: flex-start;
   }
 
-  .description > div > div {
+  .description > div {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
