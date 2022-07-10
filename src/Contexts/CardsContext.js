@@ -11,7 +11,7 @@ export default function CardsProvider({ children }) {
   async function getCards(userToken) {
     const config = {
       headers: {
-        Auhtorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${userToken}`,
       },
     };
     try {
@@ -23,18 +23,35 @@ export default function CardsProvider({ children }) {
     }
   }
 
+  async function addCard(userToken, newCard) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+    try {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/cards`, newCard, config);
+
+      getCards(userToken);
+    } catch (err) {
+      alert("Houve um erro ao cadastrar o novo cartão, tente novamente mais tarde!", err.message);
+    }
+  }
+
   async function removeCard(cardId, userToken) {
     const config = {
       headers: {
-        Auhtorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${userToken}`,
       },
     };
     try {
       await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cards/${cardId}`, config);
+
+      getCards(userToken);
     } catch (err) {
       alert("Houve um erro ao deletar o seu cartão, tente novamente mais tarde!", err.message);
     }
   }
 
-  return <CardsContext.Provider value={{ cards, getCards, removeCard }}>{children}</CardsContext.Provider>;
+  return <CardsContext.Provider value={{ cards, getCards, addCard, removeCard }}>{children}</CardsContext.Provider>;
 }

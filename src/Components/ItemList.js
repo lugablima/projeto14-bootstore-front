@@ -7,7 +7,7 @@ import { useCardsContext } from "../Contexts/CardsContext";
 export default function ItemList({
   page,
   product: { productId, imageUrl, name, descriptionProduct, price },
-  card: { _id, cardNumber, descriptionCard, date },
+  card: { _id, cardNumber, description, date },
 }) {
   const {
     user: { token },
@@ -32,7 +32,7 @@ export default function ItemList({
         <div className="description">
           <div>
             <p>{page === "Carrinho" ? name : cardNumber}</p>
-            <span>{page === "Carrinho" ? descriptionProduct : descriptionCard}</span>
+            <span>{page === "Carrinho" ? descriptionProduct : description}</span>
           </div>
           <p>{page === "Carrinho" ? `R$ ${priceFinal}` : <span style={{ fontWeight: 500 }}>Adicionado: {date}</span>}</p>
         </div>

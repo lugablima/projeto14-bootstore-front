@@ -3,27 +3,27 @@ import Header from "../Components/Header";
 import List from "../Layouts/List";
 import Footer from "../Layouts/Footer";
 import ItemList from "../Components/ItemList";
-// import { useCartContext } from "../Contexts/CartContext";
+import { useCartContext } from "../Contexts/CartContext";
 
 export default function Cart() {
-  // const { cart } = useCartContext();
+  const { cart } = useCartContext();
 
-  const cart = [
-    {
-      productId: 0,
-      name: "Tênis",
-      descriptionProduct: "da Nike",
-      price: 100.0,
-      imageUrl: "#",
-    },
-    {
-      productId: 1,
-      name: "Tênis 2",
-      descriptionProduct: "da Addidas",
-      price: 200.0,
-      imageUrl: "#",
-    },
-  ];
+  // const cart = [
+  //   {
+  //     productId: 0,
+  //     name: "Tênis",
+  //     descriptionProduct: "da Nike",
+  //     price: 100.0,
+  //     imageUrl: "#",
+  //   },
+  //   {
+  //     productId: 1,
+  //     name: "Tênis 2",
+  //     descriptionProduct: "da Addidas",
+  //     price: 200.0,
+  //     imageUrl: "#",
+  //   },
+  // ];
 
   return (
     <Container>
@@ -32,7 +32,7 @@ export default function Cart() {
         {cart.length !== 0 ? (
           cart.map((product) => <ItemList key={product.productId} page="Carrinho" product={product} card={{}} />)
         ) : (
-          <p>Seu carrinho está vazio :/</p>
+          <p className="message-empty">Seu carrinho está vazio :/</p>
         )}
       </List>
       <Footer page="Carrinho" />
@@ -47,9 +47,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  position: relative;
 
-  & > p {
+  .message-empty {
     font: 500 20px/24px "Lato", sans-serif;
     color: var(--primary);
+    text-align: center;
+    position: absolute;
+    top: calc(50% - 24px);
   }
 `;
