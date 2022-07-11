@@ -66,7 +66,6 @@ const Container = styled.div`
   z-index: 1;
   color: #fff;
   font-size: 30px;
-
   p {
     width: 122px;
     height: 34px;
