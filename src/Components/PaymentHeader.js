@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function PaymentHeader() {
-  const navigate = useNavigate();
-
   return (
     <Container>
-      <h1 onClick={() => navigate("/")}>
+      <Link to="/">
         boot<span>store</span>
-      </h1>
+      </Link>
     </Container>
   );
 }
@@ -21,7 +19,7 @@ const Container = styled.div`
   justify-content: center;
   margin-top: 60px;
 
-  & > h1 {
+  & > a {
     width: 200px;
     height: 54px;
     font: 400 36px/49px "Bree Serif", serif;

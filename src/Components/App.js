@@ -3,6 +3,8 @@ import React from "react";
 import UserProvider from "../Contexts/UserContext";
 import CardsProvider from "../Contexts/CardsContext";
 import CartProvider from "../Contexts/CartContext";
+import Store from "../Pages/Store";
+import Product from "../Pages/Product";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import Cart from "../Pages/Cart";
@@ -28,7 +30,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </CartProvider>
-     </CardsProvider>
+      </CardsProvider>
     </UserProvider>
   );
 }
