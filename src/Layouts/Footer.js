@@ -19,6 +19,8 @@ function FooterCart() {
 
   const total = calculateTotalAmount();
 
+  // Precisa verificar se o usuário tem algum item no carrinho
+
   return (
     <>
       <div>
@@ -34,16 +36,20 @@ function FooterCart() {
 }
 
 function FooterDefault() {
+  const navigate = useNavigate();
+  // Precisa colocar o ícone verde com a quantidade de items no carrinho
   return (
     <>
-      <IoCard size={40} style={{ color: "#fff" }} />
-      <IoCart size={40} style={{ color: "#fff" }} />
+      <IoCard size={40} style={{ color: "#fff" }} onClick={() => navigate("/cards")} />
+      <IoCart size={40} style={{ color: "#fff" }} onClick={() => navigate("/cart")} />
     </>
   );
 }
 
 function FooterPayment() {
-  return <FinishButton>FINALIZAR COMPRA</FinishButton>;
+  const navigate = useNavigate();
+  // Precisa verificar se o usuário selecionou algum cartão
+  return <FinishButton onClick={() => navigate("/receipt")}>FINALIZAR COMPRA</FinishButton>;
 }
 
 export default function Footer({ page }) {
