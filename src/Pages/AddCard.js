@@ -139,7 +139,6 @@ export default function AddCard() {
 }
 
 const Container = styled.div`
-  height: 100vh;
   min-height: 100%;
   display: flex;
   padding: 0 30px;
