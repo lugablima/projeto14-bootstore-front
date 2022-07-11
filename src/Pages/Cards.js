@@ -6,7 +6,6 @@ import Header from "../Components/Header";
 import List from "../Layouts/List";
 import NewCardItem from "../Layouts/NewCardItem";
 import ItemList from "../Components/ItemList";
-import Footer from "../Layouts/Footer";
 
 export default function Cards() {
   const { cards, getCards } = useCardsContext();
@@ -34,7 +33,6 @@ export default function Cards() {
           <p className="message-empty">Você ainda não tem nenhum cartão registrado :/</p>
         )}
       </List>
-      <Footer page="Cartões" />
     </Container>
   );
 }

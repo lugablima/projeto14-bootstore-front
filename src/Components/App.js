@@ -9,6 +9,7 @@ import Cart from "../Pages/Cart";
 import Cards from "../Pages/Cards";
 import Payment from "../Pages/Payment";
 import Receipt from "../Pages/Receipt";
+import Footer from "../Layouts/Footer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/receipt" element={<Receipt />} />
             </Routes>
+            <Footer />
           </BrowserRouter>
         </CartProvider>
       </CardsProvider>

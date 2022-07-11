@@ -2,7 +2,6 @@ import styled from "styled-components";
 import HeaderArrow from "../Layouts/HeaderArrow";
 import PaymentHeader from "../Components/PaymentHeader";
 import PaymentDetails from "../Layouts/PaymentDetails";
-import Footer from "../Layouts/Footer";
 
 export default function Receipt() {
   // Falta adicionar qual cartão foi escolhido como forma de pagamento
@@ -24,7 +23,6 @@ export default function Receipt() {
           Método de pagamento
         </p>
       </PaymentDetails>
-      <Footer page="Recibo" />
     </Container>
   );
 }
