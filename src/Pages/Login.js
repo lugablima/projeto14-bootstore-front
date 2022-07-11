@@ -9,17 +9,16 @@ import Page from "../Layouts/Page";
 
 export default function Login() {
   const navigate = useNavigate();
-  const UserContext = useUserContext();
+  const { user, setUser } = useUserContext();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
-    const { user } = UserContext;
     if (user) {
       navigate("/");
     }
-  }, [UserContext, navigate]);
+  }, [user]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,7 +32,7 @@ export default function Login() {
 
     const promise = axios.post(URL, data);
     promise.then((res) => {
-      UserContext.setUser(res.data);
+      setUser({ ...res.data, email });
       navigate("/");
     });
     promise.catch((err) => {
