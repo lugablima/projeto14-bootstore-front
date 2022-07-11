@@ -1,8 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { IoAddCircle } from "react-icons/io5";
 import styled from "styled-components";
 import axios from "axios";
+import { FaArrowLeft } from "react-icons/fa";
 import { useCartContext } from "../Contexts/CartContext";
 import Page from "../Layouts/Page";
 
@@ -27,6 +28,9 @@ export default function Product() {
       {Object.keys(product).length > 0 ? (
         <>
           <Background color={product.color}>
+            <Link to="/">
+              <FaArrowLeft className="icon" />
+            </Link>
             <div className="image-container">
               <img src={product.image} alt="" />
             </div>
@@ -171,5 +175,13 @@ const Background = styled.div`
       width: 100%;
       height: 100%;
     }
+  }
+
+  .icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px;
+    color: white;
   }
 `;

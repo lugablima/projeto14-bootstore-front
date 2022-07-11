@@ -21,10 +21,3 @@ body {
   background-color: var(--gray-01);
   color: var(--primary);
 }
-
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-}

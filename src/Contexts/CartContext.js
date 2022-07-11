@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 function getLocalCart() {
-  const localUser = JSON.parse(localStorage.getItem("user"));
+  const localUser = JSON.parse(localStorage.getItem("cart"));
   return localUser || [];
 }
 
 function updateLocalCart(cart) {
-  localStorage.setItem("user", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 const CartContext = createContext();
