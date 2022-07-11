@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useUserContext } from "../Contexts/UserContext";
 import { useCardsContext } from "../Contexts/CardsContext";
-import Header from "../Components/Header";
 import List from "../Layouts/List";
 import NewCardItem from "../Layouts/NewCardItem";
 import ItemList from "../Components/ItemList";
@@ -23,7 +22,6 @@ export default function Cards() {
 
   return (
     <Container>
-      <Header text="Cartões" />
       <List>
         <NewCardItem />
         {cards.length !== 0 ? (

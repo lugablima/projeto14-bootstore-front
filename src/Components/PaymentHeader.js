@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import HeaderArrow from "../Layouts/HeaderArrow";
 
 export default function PaymentHeader() {
   const navigate = useNavigate();
 
   return (
     <Container>
-      <HeaderArrow />
       <h1 onClick={() => navigate("/")}>
         boot<span>store</span>
       </h1>
