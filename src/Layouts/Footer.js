@@ -72,7 +72,7 @@ export default function Footer() {
 
   const footer = RenderFooter();
 
-  return <>{path === "/login" || path === "/signup" ? "" : <Container page={path}>{footer}</Container>}</>;
+  return <div>{path === "/login" || path === "/signup" ? "" : <Container page={path}>{footer}</Container>}</div>;
 }
 
 const Container = styled.div`

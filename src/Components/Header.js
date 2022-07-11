@@ -49,7 +49,7 @@ export default function Header() {
 
   const header = RenderHeader();
 
-  return <>{path === "/login" || path === "/signup" ? "" : <Container>{header}</Container>}</>;
+  return <div>{path === "/login" || path === "/signup" ? "" : <Container>{header}</Container>}</div>;
 }
 
 const Container = styled.div`
@@ -66,7 +66,6 @@ const Container = styled.div`
   z-index: 1;
   color: #fff;
   font-size: 30px;
-
   p {
     width: 122px;
     height: 34px;

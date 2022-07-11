@@ -64,7 +64,6 @@ const Container = styled.div`
   text-align: left;
   overflow: hidden;
   position: relative;
-
   .left {
     width: 100%;
     height: 100%;
@@ -75,12 +74,12 @@ const Container = styled.div`
     display: flex;
     /* transition: width 1s linear; */
   }
-
+  
   &:active > .left {
     width: ${(props) => (props.path === "/payment" ? "100%" : "86.98%")};
     border-radius: ${(props) => (props.path === "/payment" ? "15px" : "15px 0 0 15px")};
   }
-
+  
   .image {
     width: 70px;
     height: 70px;
@@ -91,14 +90,12 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
   }
-
   img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
     object-fit: cover;
   }
-
   .description {
     height: 100%;
     display: flex;
@@ -106,17 +103,14 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: flex-start;
   }
-
   .description > div {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
-
   span {
     font: 300 14px/17px "Lato", sans-serif;
   }
-
   .garbage {
     width: 13.02%;
     height: 100%;
