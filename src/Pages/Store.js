@@ -2,8 +2,6 @@ import styled from "styled-components";
 import React from "react";
 import axios from "axios";
 import Page from "../Layouts/Page";
-import Footer from "../Layouts/Footer";
-import Header from "../Components/Header";
 import ProductCard from "../Components/ProductCard";
 
 export default function Store() {
@@ -20,8 +18,6 @@ export default function Store() {
 
   return (
     <Container>
-      <Header text="bootstore" />
-      <Footer />
       <Page>
         <div className="products-container">
           {products.length > 0 ? products.map((product, index) => <ProductCard key={index} product={product} />) : ""}

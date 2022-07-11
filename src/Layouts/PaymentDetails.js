@@ -26,6 +26,7 @@ const PaymentDetails = styled.div`
     align-self: flex-start;
     list-style-type: disc;
     list-style-position: inside;
+    text-align: left;
   }
 
   .payment-method {

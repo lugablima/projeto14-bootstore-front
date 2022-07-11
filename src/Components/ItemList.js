@@ -15,7 +15,7 @@ export default function ItemList({
     user: { token },
   } = useUserContext();
   const { removeProductFromCart } = useCartContext();
-  const { removeCard } = useCardsContext();
+  const { removeCard, setSelectedCardId } = useCardsContext();
 
   function calculateFinalPrice() {
     let finalPrice = 0;
@@ -30,10 +30,14 @@ export default function ItemList({
     else removeCard(_id, token);
   }
 
+  function selectCard() {
+    if (path === "/payment") setSelectedCardId(_id);
+  }
+
   const finalPrice = calculateFinalPrice();
 
   return (
-    <Container path={path}>
+    <Container path={path} onClick={() => selectCard()}>
       <div className="left">
         <div className="image">{path === "/cart" ? <img src={image} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}</div>
         <div className="description">
@@ -62,8 +66,9 @@ const Container = styled.div`
   display: flex;
   font: 500 16px/19px "Lato", sans-serif;
   text-align: left;
-  overflow: hidden;
+  overflow: ${(prop) => (prop.path === "/payment" || prop.path === "/receipt" ? "" : "hidden")};
   position: relative;
+
   .left {
     width: 100%;
     height: 100%;
@@ -74,12 +79,12 @@ const Container = styled.div`
     display: flex;
     /* transition: width 1s linear; */
   }
-  
+
   &:active > .left {
     width: ${(props) => (props.path === "/payment" ? "100%" : "86.98%")};
     border-radius: ${(props) => (props.path === "/payment" ? "15px" : "15px 0 0 15px")};
   }
-  
+
   .image {
     width: 70px;
     height: 70px;

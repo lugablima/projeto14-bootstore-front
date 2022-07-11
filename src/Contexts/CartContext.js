@@ -28,5 +28,10 @@ export default function CartProvider({ children }) {
     setCart(cart.filter((product) => product._id !== productId));
   }
 
-  return <CartContext.Provider value={{ cart, addProductToCart, removeProductFromCart }}>{children}</CartContext.Provider>;
+  function getTotal() {
+    const total = cart.reduce((sum, product) => sum + product.price, 0);
+    return total;
+  }
+
+  return <CartContext.Provider value={{ cart, addProductToCart, removeProductFromCart, getTotal }}>{children}</CartContext.Provider>;
 }

@@ -28,9 +28,9 @@ function HeaderArrow() {
   const navigate = useNavigate();
 
   return (
-    <Container>
+    <>
       <IoArrowBack size={38} onClick={() => navigate(-1)} />
-    </Container>
+    </>
   );
 }
 
@@ -49,7 +49,7 @@ export default function Header() {
 
   const header = RenderHeader();
 
-  return <div>{path === "/login" || path === "/signup" ? "" : <Container>{header}</Container>}</div>;
+  return <div>{path === "/login" || path === "/signup" ? "" : <Container path={path}>{header}</Container>}</div>;
 }
 
 const Container = styled.div`
@@ -59,7 +59,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--primary);
+  background: ${(prop) => (prop.path.includes("/product/") ? "transparent" : "var(--primary)")};
   position: fixed;
   top: 0;
   left: 0;
