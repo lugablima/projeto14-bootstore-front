@@ -30,7 +30,7 @@ export default function Payment() {
           <li>AirForce 2 (T42) - R$ 150,00</li>
         </ul>
         <h5 className="payment-method">Método de pagamento</h5>
-        {cards.length !== 0 ? cards.map((card) => <ItemList key={card._id} page="Payment" card={card} product={{}} />) : ""}
+        {cards.length !== 0 ? cards.map((card) => <ItemList key={card._id} card={card} product={{}} />) : ""}
         <NewCardItem />
       </PaymentDetails>
     </Container>

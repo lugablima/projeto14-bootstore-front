@@ -26,7 +26,7 @@ export default function Cards() {
         <NewCardItem />
         {cards.length !== 0 ? (
           // eslint-disable-next-line no-underscore-dangle
-          cards.map((card) => <ItemList key={card._id} page="Cartões" card={card} product={{}} />)
+          cards.map((card) => <ItemList key={card._id} card={card} product={{}} />)
         ) : (
           <p className="message-empty">Você ainda não tem nenhum cartão registrado :/</p>
         )}

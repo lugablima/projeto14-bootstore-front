@@ -27,7 +27,7 @@ export default function Cart() {
     <Container>
       <List>
         {cart.length !== 0 ? (
-          cart.map((product) => <ItemList key={product.productId} page="Carrinho" product={product} card={{}} />)
+          cart.map((product) => <ItemList key={product.productId} product={product} card={{}} />)
         ) : (
           <p className="message-empty">Seu carrinho está vazio :/</p>
         )}
