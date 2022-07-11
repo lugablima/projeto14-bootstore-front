@@ -7,6 +7,7 @@ const PaymentDetails = styled.div`
   border-radius: 30px 30px 0 0;
   padding: 25px;
   font: 500 28px/34px "Lato", sans-serif;
+  text-align: center;
   color: var(--primary);
   display: flex;
   flex-direction: column;
