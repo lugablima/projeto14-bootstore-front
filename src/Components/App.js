@@ -12,6 +12,7 @@ import Cards from "../Pages/Cards";
 import Payment from "../Pages/Payment";
 import Receipt from "../Pages/Receipt";
 import Profile from "../Pages/Profile";
+import AddCard from "../Pages/AddCard";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/receipt" element={<Receipt />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/new-card" element={<AddCard />} />
             </Routes>
           </BrowserRouter>
         </CartProvider>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IoCard, IoCart } from "react-icons/io5";
 import { useCartContext } from "../Contexts/CartContext";
+import { useUserContext } from "../Contexts/UserContext";
 
 function FooterCart() {
   const navigate = useNavigate();
@@ -42,11 +43,33 @@ function FooterCart() {
 
 function FooterDefault() {
   const navigate = useNavigate();
+  const { user } = useUserContext();
+
   // Precisa colocar o ícone verde com a quantidade de items no carrinho
   return (
     <>
-      <IoCard size={40} style={{ color: "#fff" }} onClick={() => navigate("/cards")} />
-      <IoCart size={40} style={{ color: "#fff" }} onClick={() => navigate("/cart")} />
+      <IoCard
+        size={40}
+        style={{ color: "#fff" }}
+        onClick={() => {
+          if (!user) {
+            navigate("/login");
+            return;
+          }
+          navigate("/cards");
+        }}
+      />
+      <IoCart
+        size={40}
+        style={{ color: "#fff" }}
+        onClick={() => {
+          if (!user) {
+            navigate("/login");
+            return;
+          }
+          navigate("/cart");
+        }}
+      />
     </>
   );
 }
