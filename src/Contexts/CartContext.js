@@ -12,7 +12,7 @@ export default function CartProvider({ children }) {
   }
 
   function removeProducFromCart(productId) {
-    setCart(cart.filter((product) => product.productId !== productId));
+    setCart(cart.filter((product) => product._id !== productId));
   }
 
   return <CartContext.Provider value={{ cart, addProductToCart, removeProducFromCart }}>{children}</CartContext.Provider>;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IoCard, IoCart } from "react-icons/io5";
 import { useCartContext } from "../Contexts/CartContext";
@@ -6,6 +7,7 @@ import { useCartContext } from "../Contexts/CartContext";
 function FooterCart() {
   const navigate = useNavigate();
   const { cart } = useCartContext();
+  const [disabled, setDisabled] = useState(true);
 
   function calculateTotalAmount() {
     let total = 0;
@@ -14,12 +16,15 @@ function FooterCart() {
       total += product.price;
     });
 
+    if (total !== 0) setDisabled(false);
+    else setDisabled(true);
+
     return total;
   }
 
-  const total = calculateTotalAmount();
+  let total = 0;
 
-  // Precisa verificar se o usuário tem algum item no carrinho
+  if (cart.length !== 0) total = calculateTotalAmount();
 
   return (
     <>
@@ -28,7 +33,7 @@ function FooterCart() {
           Total: <span>R${total.toFixed(2).replace(".", ",")}</span>
         </p>
       </div>
-      <button type="button" onClick={() => navigate("/payment")}>
+      <button type="button" disabled={disabled} onClick={() => navigate("/payment")}>
         FINALIZAR
       </button>
     </>

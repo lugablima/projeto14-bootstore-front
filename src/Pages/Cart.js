@@ -8,18 +8,18 @@ export default function Cart() {
 
   // const cart = [
   //   {
-  //     productId: 0,
+  //     _id: 0,
   //     name: "Tênis",
-  //     descriptionProduct: "da Nike",
+  //     description: "da Nike",
   //     price: 100.0,
-  //     imageUrl: "#",
+  //     image: "#",
   //   },
   //   {
-  //     productId: 1,
+  //     _id: 1,
   //     name: "Tênis 2",
-  //     descriptionProduct: "da Addidas",
+  //     description: "da Addidas",
   //     price: 200.0,
-  //     imageUrl: "#",
+  //     image: "#",
   //   },
   // ];
 
@@ -27,7 +27,7 @@ export default function Cart() {
     <Container>
       <List>
         {cart.length !== 0 ? (
-          cart.map((product) => <ItemList key={product.productId} product={product} card={{}} />)
+          cart.map((product) => <ItemList key={product._id} product={product} card={{}} />)
         ) : (
           <p className="message-empty">Seu carrinho está vazio :/</p>
         )}
@@ -38,7 +38,8 @@ export default function Cart() {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

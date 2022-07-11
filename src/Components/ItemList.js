@@ -6,7 +6,7 @@ import { useCartContext } from "../Contexts/CartContext";
 import { useCardsContext } from "../Contexts/CardsContext";
 
 export default function ItemList({
-  product: { productId, imageUrl, name, descriptionProduct, price },
+  product: { _id: productId, image, name, description: descriptionProduct, price },
   card: { _id, cardNumber, description, date },
 }) {
   const location = useLocation();
@@ -35,9 +35,7 @@ export default function ItemList({
   return (
     <Container path={path}>
       <div className="left">
-        <div className="image">
-          {path === "/cart" ? <img src={imageUrl} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}
-        </div>
+        <div className="image">{path === "/cart" ? <img src={image} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}</div>
         <div className="description">
           <div>
             <p>{path === "/cart" ? name : cardNumber}</p>
@@ -75,9 +73,10 @@ const Container = styled.div`
     border-radius: 15px;
     color: var(--primary);
     display: flex;
+    /* transition: width 1s linear; */
   }
 
-  &:hover > .left {
+  &:active > .left {
     width: ${(props) => (props.path === "/payment" ? "100%" : "86.98%")};
     border-radius: ${(props) => (props.path === "/payment" ? "15px" : "15px 0 0 15px")};
   }
@@ -132,9 +131,10 @@ const Container = styled.div`
     right: -41px;
     top: 0;
     bottom: 0;
+    /* transition: width 1s linear; */
   }
 
-  &:hover > .garbage {
+  &:active > .garbage {
     right: 0;
   }
 `;
