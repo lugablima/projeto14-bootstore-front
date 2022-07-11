@@ -20,17 +20,17 @@ export default function CartProvider({ children }) {
     updateLocalCart(cart);
   }, [cart]);
 
+  function getTotal() {
+    const total = cart.reduce((sum, product) => sum + product.price, 0);
+    return total;
+  }
+
   function addProductToCart(product) {
     setCart([...cart, product]);
   }
 
   function removeProductFromCart(productId) {
     setCart(cart.filter((product) => product._id !== productId));
-  }
-
-  function getTotal() {
-    const total = cart.reduce((sum, product) => sum + product.price, 0);
-    return total;
   }
 
   return <CartContext.Provider value={{ cart, addProductToCart, removeProductFromCart, getTotal }}>{children}</CartContext.Provider>;

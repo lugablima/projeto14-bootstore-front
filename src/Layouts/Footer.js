@@ -28,11 +28,33 @@ function FooterCart() {
 
 function FooterDefault() {
   const navigate = useNavigate();
+  const { user } = useUserContext();
 
+  // Precisa colocar o ícone verde com a quantidade de items no carrinho
   return (
     <>
-      <IoCard size={40} style={{ color: "#fff" }} onClick={() => navigate("/cards")} />
-      <IoCart size={40} style={{ color: "#fff" }} onClick={() => navigate("/cart")} />
+      <IoCard
+        size={40}
+        style={{ color: "#fff" }}
+        onClick={() => {
+          if (!user) {
+            navigate("/login");
+            return;
+          }
+          navigate("/cards");
+        }}
+      />
+      <IoCart
+        size={40}
+        style={{ color: "#fff" }}
+        onClick={() => {
+          if (!user) {
+            navigate("/login");
+            return;
+          }
+          navigate("/cart");
+        }}
+      />
     </>
   );
 }

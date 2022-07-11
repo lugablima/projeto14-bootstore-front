@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { IoChevronBackOutline, IoHome, IoMenu, IoPersonCircle, IoArrowBack } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useUserContext } from "../Contexts/UserContext";
 
 function CartHeader() {
   const navigate = useNavigate();
@@ -15,11 +16,20 @@ function CartHeader() {
 
 function DefaultHeader({ path }) {
   const navigate = useNavigate();
+  const { user } = useUserContext();
   return (
     <>
       <IoMenu />
       <p>{path === "/" ? "bootstore" : "Cartões"}</p>
-      <IoPersonCircle onClick={() => navigate("/profile")} />
+      <IoPersonCircle
+        onClick={() => {
+          if (!user) {
+            navigate("/login");
+            return;
+          }
+          navigate("/profile");
+        }}
+      />
     </>
   );
 }
