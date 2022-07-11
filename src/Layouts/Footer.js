@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { IoCard, IoCart } from "react-icons/io5";
 import { useCartContext } from "../Contexts/CartContext";
 
@@ -52,11 +52,14 @@ function FooterPayment() {
   return <FinishButton onClick={() => navigate("/receipt")}>FINALIZAR COMPRA</FinishButton>;
 }
 
-export default function Footer({ page }) {
+export default function Footer() {
+  const location = useLocation();
+  const path = location.pathname;
+
   function RenderFooter() {
     let footer;
-    if (page === "Carrinho") footer = <FooterCart />;
-    else if (page === "Payment") footer = <FooterPayment />;
+    if (path === "/cart") footer = <FooterCart />;
+    else if (path === "/payment") footer = <FooterPayment />;
     else footer = <FooterDefault />;
 
     return footer;
@@ -64,14 +67,14 @@ export default function Footer({ page }) {
 
   const footer = RenderFooter();
 
-  return <Container page={page}>{footer}</Container>;
+  return <>{path === "/login" || path === "/signup" ? "" : <Container page={path}>{footer}</Container>}</>;
 }
 
 const Container = styled.div`
   width: 100%;
   height: 60px;
   display: flex;
-  justify-content: ${(prop) => (prop.page === "Carrinho" || prop.page === "Payment" ? "center" : "space-evenly")};
+  justify-content: ${(prop) => (prop.page === "/cart" || prop.page === "/payment" ? "center" : "space-evenly")};
   align-items: center;
   background: var(--primary);
   position: fixed;

@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useCardsContext } from "../Contexts/CardsContext";
 import { useUserContext } from "../Contexts/UserContext";
 import PaymentHeader from "../Components/PaymentHeader";
-import Footer from "../Layouts/Footer";
 import PaymentDetails from "../Layouts/PaymentDetails";
 import ItemList from "../Components/ItemList";
 import NewCardItem from "../Layouts/NewCardItem";
@@ -31,9 +30,8 @@ export default function Payment() {
           <li>AirForce 2 (T42) - R$ 150,00</li>
         </ul>
         <h5 className="payment-method">Método de pagamento</h5>
-        {cards.length !== 0 ? cards.map((card) => <ItemList key={card._id} page="Payment" card={card} product={{}} />) : ""}
+        {cards.length !== 0 ? cards.map((card) => <ItemList key={card._id} card={card} product={{}} />) : ""}
         <NewCardItem />
-        <Footer page="Payment" />
       </PaymentDetails>
     </Container>
   );

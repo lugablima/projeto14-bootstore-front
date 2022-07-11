@@ -2,11 +2,9 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useUserContext } from "../Contexts/UserContext";
 import { useCardsContext } from "../Contexts/CardsContext";
-import Header from "../Components/Header";
 import List from "../Layouts/List";
 import NewCardItem from "../Layouts/NewCardItem";
 import ItemList from "../Components/ItemList";
-import Footer from "../Layouts/Footer";
 
 export default function Cards() {
   const { cards, getCards } = useCardsContext();
@@ -24,17 +22,15 @@ export default function Cards() {
 
   return (
     <Container>
-      <Header text="Cartões" />
       <List>
         <NewCardItem />
         {cards.length !== 0 ? (
           // eslint-disable-next-line no-underscore-dangle
-          cards.map((card) => <ItemList key={card._id} page="Cartões" card={card} product={{}} />)
+          cards.map((card) => <ItemList key={card._id} card={card} product={{}} />)
         ) : (
           <p className="message-empty">Você ainda não tem nenhum cartão registrado :/</p>
         )}
       </List>
-      <Footer page="Cartões" />
     </Container>
   );
 }

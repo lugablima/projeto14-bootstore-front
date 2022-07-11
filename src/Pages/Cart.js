@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import Header from "../Components/Header";
 import List from "../Layouts/List";
-import Footer from "../Layouts/Footer";
 import ItemList from "../Components/ItemList";
 import { useCartContext } from "../Contexts/CartContext";
 
@@ -27,15 +25,13 @@ export default function Cart() {
 
   return (
     <Container>
-      <Header text="Carrinho" />
       <List>
         {cart.length !== 0 ? (
-          cart.map((product) => <ItemList key={product.productId} page="Carrinho" product={product} card={{}} />)
+          cart.map((product) => <ItemList key={product.productId} product={product} card={{}} />)
         ) : (
           <p className="message-empty">Seu carrinho está vazio :/</p>
         )}
       </List>
-      <Footer page="Carrinho" />
     </Container>
   );
 }

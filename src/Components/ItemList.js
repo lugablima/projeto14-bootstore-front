@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { IoTrashOutline, IoCard } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 import { useUserContext } from "../Contexts/UserContext";
 import { useCartContext } from "../Contexts/CartContext";
 import { useCardsContext } from "../Contexts/CardsContext";
 
 export default function ItemList({
-  page,
   product: { productId, imageUrl, name, descriptionProduct, price },
   card: { _id, cardNumber, description, date },
 }) {
+  const location = useLocation();
+  const path = location.pathname;
   const {
     user: { token },
   } = useUserContext();
@@ -18,33 +20,33 @@ export default function ItemList({
   function calculateFinalPrice() {
     let finalPrice = 0;
 
-    if (page === "Carrinho") finalPrice = price.toFixed(2).replace(".", ",");
+    if (path === "/cart") finalPrice = price.toFixed(2).replace(".", ",");
 
     return finalPrice;
   }
 
   function removeProductOrCard() {
-    if (page === "Carrinho") removeProductFromCart(productId);
+    if (path === "/cart") removeProductFromCart(productId);
     else removeCard(_id, token);
   }
 
   const finalPrice = calculateFinalPrice();
 
   return (
-    <Container page={page}>
+    <Container path={path}>
       <div className="left">
         <div className="image">
-          {page === "Carrinho" ? <img src={imageUrl} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}
+          {path === "/cart" ? <img src={imageUrl} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}
         </div>
         <div className="description">
           <div>
-            <p>{page === "Carrinho" ? name : cardNumber}</p>
-            <span>{page === "Carrinho" ? descriptionProduct : description}</span>
+            <p>{path === "/cart" ? name : cardNumber}</p>
+            <span>{path === "/cart" ? descriptionProduct : description}</span>
           </div>
-          <p>{page === "Carrinho" ? `R$ ${finalPrice}` : <span style={{ fontWeight: 500 }}>Adicionado: {date}</span>}</p>
+          <p>{path === "/cart" ? `R$ ${finalPrice}` : <span style={{ fontWeight: 500 }}>Adicionado: {date}</span>}</p>
         </div>
       </div>
-      {page === "Carrinho" || page === "Cartões" ? (
+      {path === "/cart" || path === "/cards" ? (
         <div className="garbage">
           <IoTrashOutline onClick={() => removeProductOrCard()} />
         </div>
@@ -76,8 +78,8 @@ const Container = styled.div`
   }
 
   &:hover > .left {
-    width: ${(props) => (props.page === "Payment" ? "100%" : "86.98%")};
-    border-radius: ${(props) => (props.page === "Payment" ? "15px" : "15px 0 0 15px")};
+    width: ${(props) => (props.path === "/payment" ? "100%" : "86.98%")};
+    border-radius: ${(props) => (props.path === "/payment" ? "15px" : "15px 0 0 15px")};
   }
 
   .image {
