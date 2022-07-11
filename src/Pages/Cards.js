@@ -1,26 +1,12 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { IoAddCircle } from "react-icons/io5";
 import { useEffect } from "react";
 import { useUserContext } from "../Contexts/UserContext";
 import { useCardsContext } from "../Contexts/CardsContext";
 import Header from "../Components/Header";
 import List from "../Layouts/List";
+import NewCardItem from "../Layouts/NewCardItem";
 import ItemList from "../Components/ItemList";
 import Footer from "../Layouts/Footer";
-
-function NewCardItem() {
-  const navigate = useNavigate();
-
-  return (
-    <NewCardContainer onClick={() => navigate("/new-card")}>
-      <div>
-        <IoAddCircle />
-      </div>
-      <p>Adicionar novo cartão</p>
-    </NewCardContainer>
-  );
-}
 
 export default function Cards() {
   const { cards, getCards } = useCardsContext();
@@ -68,36 +54,5 @@ const Container = styled.div`
     text-align: center;
     position: absolute;
     top: calc(50% - 24px);
-  }
-`;
-
-const NewCardContainer = styled.div`
-  width: 100%;
-  height: 90px;
-  margin-bottom: 20px;
-  padding: 10px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font: 500 20px/24px "Lato", sans-serif;
-  text-align: left;
-  background: var(--gray-02);
-  border-radius: 15px;
-
-  & > div {
-    width: 70px;
-    height: 70px;
-    border-radius: 10px;
-    margin-right: 10px;
-    background: #2cd6d7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 34px;
-  }
-
-  p {
-    color: var(--primary);
   }
 `;

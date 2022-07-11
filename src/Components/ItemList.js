@@ -14,17 +14,24 @@ export default function ItemList({
   } = useUserContext();
   const { removeProductFromCart } = useCartContext();
   const { removeCard } = useCardsContext();
-  let priceFinal = 0;
 
-  if (page === "Carrinho") priceFinal = price.toFixed(2).replace(".", ",");
+  function calculateFinalPrice() {
+    let finalPrice = 0;
+
+    if (page === "Carrinho") finalPrice = price.toFixed(2).replace(".", ",");
+
+    return finalPrice;
+  }
 
   function removeProductOrCard() {
     if (page === "Carrinho") removeProductFromCart(productId);
     else removeCard(_id, token);
   }
 
+  const finalPrice = calculateFinalPrice();
+
   return (
-    <Container>
+    <Container page={page}>
       <div className="left">
         <div className="image">
           {page === "Carrinho" ? <img src={imageUrl} alt="produto" /> : <IoCard size={40} style={{ color: "#fff" }} />}
@@ -34,12 +41,16 @@ export default function ItemList({
             <p>{page === "Carrinho" ? name : cardNumber}</p>
             <span>{page === "Carrinho" ? descriptionProduct : description}</span>
           </div>
-          <p>{page === "Carrinho" ? `R$ ${priceFinal}` : <span style={{ fontWeight: 500 }}>Adicionado: {date}</span>}</p>
+          <p>{page === "Carrinho" ? `R$ ${finalPrice}` : <span style={{ fontWeight: 500 }}>Adicionado: {date}</span>}</p>
         </div>
       </div>
-      <div className="garbage">
-        <IoTrashOutline onClick={() => removeProductOrCard()} />
-      </div>
+      {page === "Carrinho" || page === "Cartões" ? (
+        <div className="garbage">
+          <IoTrashOutline onClick={() => removeProductOrCard()} />
+        </div>
+      ) : (
+        ""
+      )}
     </Container>
   );
 }
@@ -65,8 +76,8 @@ const Container = styled.div`
   }
 
   &:hover > .left {
-    width: 86.98%;
-    border-radius: 15px 0 0 15px;
+    width: ${(props) => (props.page === "Payment" ? "100%" : "86.98%")};
+    border-radius: ${(props) => (props.page === "Payment" ? "15px" : "15px 0 0 15px")};
   }
 
   .image {
