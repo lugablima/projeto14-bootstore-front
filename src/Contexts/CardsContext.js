@@ -7,6 +7,7 @@ export const useCardsContext = () => useContext(CardsContext);
 
 export default function CardsProvider({ children }) {
   const [cards, setCards] = useState([]);
+  const [selectedCardId, setSelectedCardId] = useState(null);
 
   async function getCards(userToken) {
     const config = {
@@ -53,9 +54,9 @@ export default function CardsProvider({ children }) {
     }
   }
 
-  // function selectCard(page, cardId) {
-  //   if(page === "Payment") setHaveSelectedCard(true);
-  // }
-
-  return <CardsContext.Provider value={{ cards, getCards, addCard, removeCard }}>{children}</CardsContext.Provider>;
+  return (
+    <CardsContext.Provider value={{ cards, getCards, addCard, removeCard, selectedCardId, setSelectedCardId }}>
+      {children}
+    </CardsContext.Provider>
+  );
 }

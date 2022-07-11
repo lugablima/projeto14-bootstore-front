@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect } from "react";
-// import { useCartContext } from "../Contexts/CartContext";
+import { useCartContext } from "../Contexts/CartContext";
 import { useCardsContext } from "../Contexts/CardsContext";
 import { useUserContext } from "../Contexts/UserContext";
 import PaymentHeader from "../Components/PaymentHeader";
@@ -9,7 +9,7 @@ import ItemList from "../Components/ItemList";
 import NewCardItem from "../Layouts/NewCardItem";
 
 export default function Payment() {
-  // const { cart } = useCartContext();
+  const { cart, getTotal } = useCartContext();
   const { cards, getCards } = useCardsContext();
   const {
     user: { token },
@@ -19,15 +19,20 @@ export default function Payment() {
     getCards(token);
   }, []);
 
+  const total = getTotal();
+
   return (
     <Container>
       <PaymentHeader />
       <PaymentDetails>
         <p style={{ alignSelf: "flex-start" }}>Total:</p>
-        <h6 className="price">R$ 300,00</h6>
+        <h6 className="price">R$ {total.toFixed(2).replace(".", ",")}</h6>
         <ul>
-          <li>AirForce 1 (T39) - R$ 150,00</li>
-          <li>AirForce 2 (T42) - R$ 150,00</li>
+          {cart.map((product, index) => (
+            <li key={index}>
+              {product.name} - ({product.selectedSize}) - R$ {product.price.toFixed(2).replace(".", ",")}
+            </li>
+          ))}
         </ul>
         <h5 className="payment-method">Método de pagamento</h5>
         {cards.length !== 0 ? cards.map((card) => <ItemList key={card._id} card={card} product={{}} />) : ""}

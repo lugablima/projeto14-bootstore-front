@@ -1,31 +1,16 @@
 import styled from "styled-components";
-import { useState } from "react";
+import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IoCard, IoCart } from "react-icons/io5";
 import { useCartContext } from "../Contexts/CartContext";
+import { useCardsContext } from "../Contexts/CardsContext";
 import { useUserContext } from "../Contexts/UserContext";
 
 function FooterCart() {
   const navigate = useNavigate();
-  const { cart } = useCartContext();
-  const [disabled, setDisabled] = useState(true);
+  const { getTotal } = useCartContext();
 
-  function calculateTotalAmount() {
-    let total = 0;
-
-    cart.forEach((product) => {
-      total += product.price;
-    });
-
-    if (total !== 0) setDisabled(false);
-    else setDisabled(true);
-
-    return total;
-  }
-
-  let total = 0;
-
-  if (cart.length !== 0) total = calculateTotalAmount();
+  const total = getTotal();
 
   return (
     <>
@@ -34,7 +19,7 @@ function FooterCart() {
           Total: <span>R${total.toFixed(2).replace(".", ",")}</span>
         </p>
       </div>
-      <button type="button" disabled={disabled} onClick={() => navigate("/payment")}>
+      <button type="button" onClick={() => navigate("/payment")}>
         FINALIZAR
       </button>
     </>
@@ -76,8 +61,35 @@ function FooterDefault() {
 
 function FooterPayment() {
   const navigate = useNavigate();
-  // Precisa verificar se o usuário selecionou algum cartão
-  return <FinishButton onClick={() => navigate("/receipt")}>FINALIZAR COMPRA</FinishButton>;
+  const {
+    user: { token },
+  } = useUserContext();
+  const { cart, getTotal } = useCartContext();
+  const { selectedCardId } = useCardsContext();
+
+  async function submitPurchase() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const order = {
+      priceTotal: getTotal().toFixed(2),
+      productIds: cart.map((product) => product._id),
+      cardId: selectedCardId,
+    };
+
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/orders`, order, config);
+
+      navigate("/receipt", { state: { orderId: res.data._id } });
+    } catch (err) {
+      alert("Não foi possível finalizar a compra, tente novamente mais tarde!");
+    }
+  }
+
+  return <FinishButton onClick={() => submitPurchase()}>FINALIZAR COMPRA</FinishButton>;
 }
 
 export default function Footer() {

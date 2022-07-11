@@ -3,6 +3,7 @@ import React from "react";
 import UserProvider from "../Contexts/UserContext";
 import CardsProvider from "../Contexts/CardsContext";
 import CartProvider from "../Contexts/CartContext";
+import Header from "./Header";
 import Store from "../Pages/Store";
 import Product from "../Pages/Product";
 import Login from "../Pages/Login";
@@ -11,6 +12,7 @@ import Cart from "../Pages/Cart";
 import Cards from "../Pages/Cards";
 import Payment from "../Pages/Payment";
 import Receipt from "../Pages/Receipt";
+import Footer from "../Layouts/Footer";
 import Profile from "../Pages/Profile";
 import AddCard from "../Pages/AddCard";
 
@@ -20,6 +22,7 @@ function App() {
       <CardsProvider>
         <CartProvider>
           <BrowserRouter>
+            <Header />
             <Routes>
               <Route path="/" element={<Store />} />
               <Route path="/login" element={<Login />} />
@@ -32,6 +35,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/new-card" element={<AddCard />} />
             </Routes>
+            <Footer />
           </BrowserRouter>
         </CartProvider>
       </CardsProvider>

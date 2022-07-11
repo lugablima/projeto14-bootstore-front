@@ -33,5 +33,5 @@ export default function CartProvider({ children }) {
     setCart(cart.filter((product) => product._id !== productId));
   }
 
-  return <CartContext.Provider value={{ cart, getTotal, addProductToCart, removeProductFromCart }}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={{ cart, addProductToCart, removeProductFromCart, getTotal }}>{children}</CartContext.Provider>;
 }
