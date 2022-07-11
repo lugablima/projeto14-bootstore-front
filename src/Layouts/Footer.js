@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { IoCard, IoCart } from "react-icons/io5";
 import { useCartContext } from "../Contexts/CartContext";
 
 function FooterCart() {
+  const navigate = useNavigate();
   const { cart } = useCartContext();
 
   function calculateTotalAmount() {
@@ -16,18 +17,6 @@ function FooterCart() {
     return total;
   }
 
-  async function finalizePurchase() {
-    const config = {
-      // headers: {
-      //   Authorization: `Bearer ${token}`;
-      // }
-    };
-
-    await axios.post(`${process.env.REACT_APP_API_BASE_URL}/`, { purchases: cart }, config);
-
-    // navigate("/payment");
-  }
-
   const total = calculateTotalAmount();
 
   return (
@@ -37,7 +26,7 @@ function FooterCart() {
           Total: <span>R${total.toFixed(2).replace(".", ",")}</span>
         </p>
       </div>
-      <button type="button" onClick={finalizePurchase}>
+      <button type="button" onClick={() => navigate("/payment")}>
         FINALIZAR
       </button>
     </>
@@ -104,7 +93,7 @@ const Container = styled.div`
     color: var(--tertiary);
   }
 
-  button {
+  button[type="button"] {
     width: 33.07%;
     max-width: 124px;
     height: 40px;

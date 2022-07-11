@@ -53,5 +53,9 @@ export default function CardsProvider({ children }) {
     }
   }
 
+  // function selectCard(page, cardId) {
+  //   if(page === "Payment") setHaveSelectedCard(true);
+  // }
+
   return <CardsContext.Provider value={{ cards, getCards, addCard, removeCard }}>{children}</CardsContext.Provider>;
 }
