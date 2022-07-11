@@ -1,14 +1,55 @@
 import styled from "styled-components";
-import { IoChevronBackOutline, IoHome, IoMenu, IoPersonCircle } from "react-icons/io5";
+import { IoChevronBackOutline, IoHome, IoMenu, IoPersonCircle, IoArrowBack } from "react-icons/io5";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Header({ text }) {
+function CartHeader() {
+  const navigate = useNavigate();
+  return (
+    <>
+      <IoChevronBackOutline onClick={() => navigate(-1)} />
+      <p>Carrinho</p>
+      <IoHome onClick={() => navigate("/")} />
+    </>
+  );
+}
+
+function DefaultHeader({ path }) {
+  const navigate = useNavigate();
+  return (
+    <>
+      <IoMenu />
+      <p>{path === "/" ? "bootstore" : "Cartões"}</p>
+      <IoPersonCircle onClick={() => navigate("/profile")} />
+    </>
+  );
+}
+
+function HeaderArrow() {
+  const navigate = useNavigate();
+
   return (
     <Container>
-      {text === "Carrinho" ? <IoChevronBackOutline /> : <IoMenu />}
-      <p>{text}</p>
-      {text === "Carrinho" ? <IoHome /> : <IoPersonCircle />}
+      <IoArrowBack size={38} onClick={() => navigate(-1)} />
     </Container>
   );
+}
+
+export default function Header() {
+  const location = useLocation();
+  const path = location.pathname;
+
+  function RenderHeader() {
+    let header;
+    if (path === "/cart") header = <CartHeader />;
+    else if (path === "/" || path === "/cards") header = <DefaultHeader path={path} />;
+    else header = <HeaderArrow />;
+
+    return header;
+  }
+
+  const header = RenderHeader();
+
+  return <>{path === "/login" || path === "/signup" ? "" : <Container>{header}</Container>}</>;
 }
 
 const Container = styled.div`
@@ -24,8 +65,7 @@ const Container = styled.div`
   left: 0;
   z-index: 1;
   color: #fff;
-  font-size: 26px;
-
+  font-size: 30px;
   p {
     width: 122px;
     height: 34px;

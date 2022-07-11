@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
 import { IoCard, IoCart } from "react-icons/io5";
 import { useCartContext } from "../Contexts/CartContext";
 
 function FooterCart() {
+  const navigate = useNavigate();
   const { cart } = useCartContext();
 
   function calculateTotalAmount() {
@@ -16,19 +17,9 @@ function FooterCart() {
     return total;
   }
 
-  async function finalizePurchase() {
-    const config = {
-      // headers: {
-      //   Authorization: `Bearer ${token}`;
-      // }
-    };
-
-    await axios.post(`${process.env.REACT_APP_API_BASE_URL}/`, { purchases: cart }, config);
-
-    // navigate("/payment");
-  }
-
   const total = calculateTotalAmount();
+
+  // Precisa verificar se o usuário tem algum item no carrinho
 
   return (
     <>
@@ -37,7 +28,7 @@ function FooterCart() {
           Total: <span>R${total.toFixed(2).replace(".", ",")}</span>
         </p>
       </div>
-      <button type="button" onClick={finalizePurchase}>
+      <button type="button" onClick={() => navigate("/payment")}>
         FINALIZAR
       </button>
     </>
@@ -45,23 +36,30 @@ function FooterCart() {
 }
 
 function FooterDefault() {
+  const navigate = useNavigate();
+  // Precisa colocar o ícone verde com a quantidade de items no carrinho
   return (
     <>
-      <IoCard size={40} style={{ color: "#fff" }} />
-      <IoCart size={40} style={{ color: "#fff" }} />
+      <IoCard size={40} style={{ color: "#fff" }} onClick={() => navigate("/cards")} />
+      <IoCart size={40} style={{ color: "#fff" }} onClick={() => navigate("/cart")} />
     </>
   );
 }
 
 function FooterPayment() {
-  return <FinishButton>FINALIZAR COMPRA</FinishButton>;
+  const navigate = useNavigate();
+  // Precisa verificar se o usuário selecionou algum cartão
+  return <FinishButton onClick={() => navigate("/receipt")}>FINALIZAR COMPRA</FinishButton>;
 }
 
-export default function Footer({ page }) {
+export default function Footer() {
+  const location = useLocation();
+  const path = location.pathname;
+
   function RenderFooter() {
     let footer;
-    if (page === "Carrinho") footer = <FooterCart />;
-    else if (page === "Payment") footer = <FooterPayment />;
+    if (path === "/cart") footer = <FooterCart />;
+    else if (path === "/payment") footer = <FooterPayment />;
     else footer = <FooterDefault />;
 
     return footer;
@@ -69,14 +67,14 @@ export default function Footer({ page }) {
 
   const footer = RenderFooter();
 
-  return <Container page={page}>{footer}</Container>;
+  return <>{path === "/login" || path === "/signup" ? "" : <Container page={path}>{footer}</Container>}</>;
 }
 
 const Container = styled.div`
   width: 100%;
   height: 60px;
   display: flex;
-  justify-content: ${(prop) => (prop.page === "Carrinho" || prop.page === "Payment" ? "center" : "space-evenly")};
+  justify-content: ${(prop) => (prop.page === "/cart" || prop.page === "/payment" ? "center" : "space-evenly")};
   align-items: center;
   background: var(--primary);
   position: fixed;
@@ -104,7 +102,7 @@ const Container = styled.div`
     color: var(--tertiary);
   }
 
-  button {
+  button[type="button"] {
     width: 33.07%;
     max-width: 124px;
     height: 40px;
