@@ -37,11 +37,7 @@ function DefaultHeader({ path }) {
 function HeaderArrow() {
   const navigate = useNavigate();
 
-  return (
-    <>
-      <IoArrowBack size={38} onClick={() => navigate(-1)} />
-    </>
-  );
+  return <IoArrowBack size={38} onClick={() => navigate(-1)} />;
 }
 
 export default function Header() {
